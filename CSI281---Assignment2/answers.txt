@@ -1,0 +1,11 @@
+1.  The Big-O runtime for randomIntArray() is O(n) because the function
+loops through the array one time.
+
+2.  The Big-O runtime for arraySearchSpeed() is O(n + log(n) + nlog(n))
+because the speed test combines linear search [O(n)] and binary search 
+[O(log(n) + nlog(n))], so the times are added together to get 
+O(n + log(n) + nlog(n)).
+
+3. 
+
+4. array/vector, class, and struct
