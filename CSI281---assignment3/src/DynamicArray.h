@@ -56,11 +56,15 @@ namespace csi281 {
         // Return -1 if it is not found>
         int find(const T &item) {
             // YOUR CODE HERE
+            for (int i = 0; i < capacity; i++)
+                if (backingStore[i] == item)    return i;
+            return -1;
         }
         
         // Get the item at a particular index
         T &get(int index) {
             // YOUR CODE HERE
+            return backingStore[index];
         }
         
         // Insert at the beginning of the collection

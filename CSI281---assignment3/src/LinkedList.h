@@ -56,6 +56,16 @@ namespace csi281 {
         // Return -1 if it is not found
         int find(const T &item) {
             // YOUR CODE HERE
+            int index = 0;
+            Node *current = head;
+            while ( current != nullptr ) {
+                if ( current->data == item ) 
+                    return index;
+                Node *last = current;
+                current = current->next;
+                index++;
+            }
+            return -1;
         }
         
         // Get the item at a particular index
