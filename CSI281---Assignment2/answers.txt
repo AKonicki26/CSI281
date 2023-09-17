@@ -7,5 +7,10 @@ because the speed test combines linear search [O(n)] and binary search
 O(n + log(n) + nlog(n)).
 
 3. 
+Binary Search Formula: 10 * log(N) * number_of_searches + (12 * N * log(N))
+Linear Search Formula: 5 * N * number_of_searches
+
+The point at which these two lines intersect is 31.975, meaning that the
+32nd search will be faster to sort the list and use binary search
 
 4. array/vector, class, and struct
