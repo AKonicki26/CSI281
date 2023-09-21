@@ -1,0 +1,18 @@
+1. Bubble sort is slower than selection sort because bubble sort
+performs many swap operations, while selection sort only performs one
+swap operation per iteration of the outside loop. Insertion sort does not move
+through the entire array twice, meaning insertion sort performs fewer checks than
+bubble sort
+
+2. Insertion sort is faster than selection sort because insertion sort does not need
+to check through the entire array on the inner loop, while selection sort does check
+the entire array on in the inner loop to find the smallest element in the
+
+3. These three sorting algorithms rely on the class type having the "<" operator. 
+In order for these sorting algorithms to work with a custom class type, the class would
+need to have the "<" operator overloaded in the class definition.
+
+4. I think that std::sort() is faster than these implementations because std::sort() was built
+for speed optimations rather than space. Our functions all have a time complexity of O(n^2) and
+a space complexity of O(1). i think that std::sort() has a faster time complexity with a larger
+space complexity.

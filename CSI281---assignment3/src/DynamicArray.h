@@ -80,6 +80,9 @@ namespace csi281 {
         // inserting
         void insertAtEnd(const T &item) {
             // YOUR CODE HERE
+            if (count > capacity)
+                setCapacity(capacity * growthFactor);
+            backingStore[count] = item;
         }
         
         // Insert at a specific index
@@ -88,17 +91,35 @@ namespace csi281 {
         // Hint: May want to use moveDownFrom()
         void insert(const T &item, int index) {
             // YOUR CODE HERE
+            assert(index >= 0 && index < count);
+
+            if (index == 0) {
+                insertAtBeginning(item);
+                return;
+            }
+            else if (index == count) {
+                insertAtEnd(item);
+                return;
+            }
+
+            moveDownFrom(index);
+            backingStore[index] = item;
         }
         
         // Remove the item at the beginning of the collection
         void removeAtBeginning() {
             // YOUR CODE HERE
+            for (int i = 0; i < count - 1; i++)
+                backingStore[i] = backingStore[i + 1];
+            count--;
         }
         
         // Remove the item at the end of the collection
         // Hint: This might be very simple.
         void removeAtEnd() {
             // YOUR CODE HERE
+            backingStore[count] = 0;
+            count--;
         }
         
         // Remove the item at a specific index
@@ -136,7 +157,7 @@ namespace csi281 {
         T *backingStore;
         
         // Shift all of the items in backingStore starting at
-        // index down by 1 place
+        // index up by 1 place
         // Make sure you have capacity available to do this before
         // running this method
         void moveDownFrom(int index) {
