@@ -57,9 +57,13 @@ namespace csi281 {
         int find(const T &item) {
             // YOUR CODE HERE
             int iterator = 0;
-            for (Node *current = head; current != nullptr; current = current->next, iterator++)
-                if ( current->data == item ) return iterator;
-            return -1;  
+
+            // For some reason this had a read access violation, and it makes me sad, I've tried everything else
+            // and that also has read access violations, so I'm just gonna have to work around that :/
+            for (Node* current = head; current != nullptr; current = current->next, iterator++)
+                if (current->data == item) return iterator;
+
+            return -1;
         }
         
         // Get the item at a particular index
@@ -141,8 +145,10 @@ namespace csi281 {
             Node *current = head;
 
             //move current to the second to last node in the list
+            for (int i = 0; i < count; i++, current = current->next);
+            delete current;
+            current = head;
             for (int i = 0; i < count - 1; i++, current = current->next);
-            delete tail;
             tail = current;
             count--;
         }

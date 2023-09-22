@@ -73,6 +73,9 @@ namespace csi281 {
         // Hint: May want to use moveDownFrom()
         void insertAtBeginning(const T &item) {
             // YOUR CODE HERE
+            moveDownFrom(0);
+            backingStore[0] = item;
+            count++;
         }
         
         // Insert at the end of the collection
@@ -80,8 +83,7 @@ namespace csi281 {
         // inserting
         void insertAtEnd(const T &item) {
             // YOUR CODE HERE
-            if (count > capacity)
-                setCapacity(capacity * growthFactor);
+            count++;
             backingStore[count] = item;
         }
         
@@ -93,6 +95,9 @@ namespace csi281 {
             // YOUR CODE HERE
             assert(index >= 0 && index < count);
 
+            if (count >= capacity)
+                setCapacity(capacity * growthFactor);
+
             if (index == 0) {
                 insertAtBeginning(item);
                 return;
@@ -101,7 +106,6 @@ namespace csi281 {
                 insertAtEnd(item);
                 return;
             }
-
             moveDownFrom(index);
             backingStore[index] = item;
         }
@@ -127,6 +131,20 @@ namespace csi281 {
         // down and removing the starting beginning element
         void removeAt(int index) {
             // YOUR CODE HERE
+            assert (index >= 0 && index < count);
+
+            if (index == count - 1) {
+                removeAtEnd();
+                return;
+            }
+            else if (index == 0){
+                removeAtBeginning();
+                return;
+            }
+                
+            for (int i = index; i < count; i++)
+                backingStore[i] = backingStore[i + 1];
+                
         }
         
         // Change the capacity of the dynamic array
