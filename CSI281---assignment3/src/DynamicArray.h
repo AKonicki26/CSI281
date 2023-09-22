@@ -57,7 +57,7 @@ namespace csi281 {
         int find(const T &item) {
             // YOUR CODE HERE
             for (int i = 0; i < capacity; i++)
-                if (backingStore[i] == item) return i;
+                if (backingStore[i] == item)    return i;
             return -1;
         }
         
@@ -73,6 +73,12 @@ namespace csi281 {
         // Hint: May want to use moveDownFrom()
         void insertAtBeginning(const T &item) {
             // YOUR CODE HERE
+
+            if (count >= capacity)
+                setCapacity(capacity * growthFactor);
+            moveDownFrom(0);
+            backingStore[0] = item;
+            count++;
         }
         
         // Insert at the end of the collection
@@ -80,9 +86,11 @@ namespace csi281 {
         // inserting
         void insertAtEnd(const T &item) {
             // YOUR CODE HERE
-            if (count > capacity)
+
+            if (count >= capacity)
                 setCapacity(capacity * growthFactor);
             backingStore[count] = item;
+            count++;
         }
         
         // Insert at a specific index
@@ -93,6 +101,9 @@ namespace csi281 {
             // YOUR CODE HERE
             assert(index >= 0 && index < count);
 
+            if (count >= capacity)
+                setCapacity(capacity * growthFactor);
+
             if (index == 0) {
                 insertAtBeginning(item);
                 return;
@@ -101,9 +112,9 @@ namespace csi281 {
                 insertAtEnd(item);
                 return;
             }
-
             moveDownFrom(index);
             backingStore[index] = item;
+            count++;
         }
         
         // Remove the item at the beginning of the collection
@@ -127,6 +138,21 @@ namespace csi281 {
         // down and removing the starting beginning element
         void removeAt(int index) {
             // YOUR CODE HERE
+            assert (index >= 0 && index < count);
+
+            if (index == count - 1) {
+                removeAtEnd();
+                return;
+            }
+            else if (index == 0){
+                removeAtBeginning();
+                return;
+            }
+                
+            for (int i = index; i < count; i++)
+                backingStore[i] = backingStore[i + 1];
+            count--;
+                
         }
         
         // Change the capacity of the dynamic array
