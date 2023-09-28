@@ -48,6 +48,15 @@ namespace csi281 {
     template <typename T>
     void mergeSort(T array[], const int start, const int end) {
         // YOUR CODE HERE
+        int length = end - start + 1;
+        if (length < 2)
+            return;
+
+        int middle = ((length - 1) / 2) + start;
+        mergeSort(array, start, middle);
+        mergeSort(array, middle + 1, end);
+
+        inplace_merge(array + start, array + middle + 1, array + end + 1);
     }
     
     // setup random number generator
@@ -87,6 +96,16 @@ namespace csi281 {
     template <typename T>
     void insertionSort(T array[], const int start, const int end) {
         // YOUR CODE HERE
+        for (int i = start + 1; i < (end - start + 1); i++) {
+            T element = array[i];
+            int j = i - 1;
+            
+            while (j >= start && array[j] > element) {
+                array[j + 1] = array[j];
+                j--;
+            }
+            array[j + 1] = element;
+        }
     }
     
     // Performs an in-place ascending sort of *array*
