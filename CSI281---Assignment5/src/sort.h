@@ -79,6 +79,27 @@ namespace csi281 {
     template <typename T>
     void quickSort(T array[], const int start, const int end) {
         // YOUR CODE HERE
+        int length = end - start + 1;
+        if (length < 2)
+            return;
+        
+        uniform_int_distribution<int> MinMax(start, end);
+        int randomIndex = MinMax(rd);
+        T pivotElement = array[randomIndex];
+        int pivotIndex = 0;
+
+        swap(array[randomIndex], array[end]);
+
+        int index = start - 1;
+
+        for (int i = start; i < end; i++)
+            if (array[i] <= pivotElement)
+                swap(array[++index], array[i]);
+
+        swap(array[++index], array[end]);
+        pivotIndex = index;
+        quickSort(array, start, pivotIndex - 1);
+        quickSort(array, pivotIndex + 1, end);
     }
     
     // Performs an in-place ascending sort of *array*
@@ -96,7 +117,7 @@ namespace csi281 {
     template <typename T>
     void insertionSort(T array[], const int start, const int end) {
         // YOUR CODE HERE
-        for (int i = start + 1; i < (end - start + 1); i++) {
+        for (int i = start + 1; i <= end; i++) {
             T element = array[i];
             int j = i - 1;
             
@@ -119,10 +140,18 @@ namespace csi281 {
     template <typename T>
     void hybridSort(T array[], const int start, const int end) {
         // YOUR CODE HERE
-    }
-    
-    
-}
+        int length = end - start + 1;
+        if (length < 10) {
+            insertionSort(array, start, end);
+            return;
+        }
 
+        int middle = ((length - 1) / 2) + start;
+        mergeSort(array, start, middle);
+        mergeSort(array, middle + 1, end);
+
+        inplace_merge(array + start, array + middle + 1, array + end + 1);
+    }
+}
 
 #endif /* sort_hpp */
