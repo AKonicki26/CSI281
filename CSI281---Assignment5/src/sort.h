@@ -147,8 +147,8 @@ namespace csi281 {
         }
 
         int middle = ((length - 1) / 2) + start;
-        mergeSort(array, start, middle);
-        mergeSort(array, middle + 1, end);
+        hybridSort(array, start, middle);
+        hybridSort(array, middle + 1, end);
 
         inplace_merge(array + start, array + middle + 1, array + end + 1);
     }
