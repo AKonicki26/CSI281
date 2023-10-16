@@ -66,8 +66,23 @@ namespace csi281 {
         // the original and not a copy
         void put(const K key, const V value) {
             // YOUR CODE HERE
+            
+            //cout << "Load Factor at Key: " << key << " Value: " << value << " -- " << getLoadFactor() << endl;
             if (getLoadFactor() > MAX_LOAD_FACTOR) 
                 resize(capacity * growthFactor);
+
+            int index = hashKey(key)  % capacity;
+
+            for (auto& p : backingStore[index])
+                if (p.first == key) {
+                    p.second = value;
+                    return;
+                }
+
+
+            // If Key is not already present
+            backingStore[index].push_back(pair<K, V>(key, value));
+            count++;
         }
         
         // Get the item associated with a particular key
@@ -96,6 +111,12 @@ namespace csi281 {
         // the original and not a copy
         void remove(const K &key) {
             // YOUR CODE HERE
+            int index = hashKey(key) % capacity;
+
+            // Why is this function this long it causes me pain
+            backingStore[index].erase(remove_if(backingStore[index].begin(), backingStore[index].end(), [&key](pair<K, V> data) { return data.first == key; }), backingStore[index].end());
+
+            count--;
         }
         
         // Calculate and return the load factor
@@ -138,17 +159,17 @@ namespace csi281 {
             // YOUR CODE HERE
             list<pair<K, V>>* newBackingStore = new list<pair<K, V>>[cap];
 
+            int oldCapacity = capacity;
+            capacity = cap;
+
             if (backingStore == nullptr) {
                 backingStore = newBackingStore;
                 return;
             }
 
-            int oldCapacity = capacity;
-            capacity = cap;
-
             for (int i = 0; i < oldCapacity; i++)
-                for (auto p : backingStore[i]) 
-                    newBackingStore[hashKey(p.first)].push_back(p.second);
+                for (auto p : backingStore[i])
+                    newBackingStore[hashKey(p.first)  % capacity].push_back(pair<K, V>(p.first, p.second));
                 
             backingStore = newBackingStore;
 
@@ -158,7 +179,7 @@ namespace csi281 {
         // the current capacity
         // TIP: use the std::hash key_hash defined as a private variable
         size_t hashKey(const K &key) {
-            return key_hash(key) % capacity;
+            return key_hash(key);
         }
     };
     
