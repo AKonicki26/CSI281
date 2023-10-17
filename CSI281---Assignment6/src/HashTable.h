@@ -67,9 +67,6 @@ namespace csi281 {
         void put(const K key, const V value) {
             // YOUR CODE HERE
             
-            //cout << "Load Factor at Key: " << key << " Value: " << value << " -- " << getLoadFactor() << endl;
-            if (getLoadFactor() > MAX_LOAD_FACTOR) 
-                resize(capacity * growthFactor);
 
             int index = hashKey(key)  % capacity;
 
@@ -83,6 +80,10 @@ namespace csi281 {
             // If Key is not already present
             backingStore[index].push_back(pair<K, V>(key, value));
             count++;
+
+            //cout << "Load Factor at Key: " << key << " Value: " << value << " -- " << getLoadFactor() << endl;
+            if (getLoadFactor() > MAX_LOAD_FACTOR) 
+                resize(capacity * growthFactor);
         }
         
         // Get the item associated with a particular key
