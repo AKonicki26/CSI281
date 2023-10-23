@@ -46,15 +46,17 @@ namespace csi281 {
 
         // Put a new element in the collection
         virtual void push(const T &item) {
-
+            backingStore.push_back(item);
         }
         // Remove and return the next element from the collection
         virtual T pop() {
-
+            T element = peek();
+            backingStore.pop_back();
+            return element;
         }
         // Access the next element in the collection
         virtual T &peek() {
-            
+            return backingStore.back();
         }
     protected:
         using SequentialCollection<T>::backingStore;

@@ -40,6 +40,15 @@ TEST_CASE( "Queue Tests", "[queue]" ) {
         // work properly in concert with getCount()
         // and remove()
         // YOUR CODE HERE
+        int sampleIntArray1[6] = {23, 4, 11, 4, 7, 8};
+        for (int element : sampleIntArray1)
+            q1.push(element);
+        CHECK(q1.peek() == 23);
+        CHECK(q1.pop() == 23);
+        CHECK (q1.pop() == 4);
+        q1.push(500);
+        CHECK (q1.peek() != 500);
+        
     }
     
     SECTION( "Queue w/ string tests" ) {
@@ -48,6 +57,12 @@ TEST_CASE( "Queue Tests", "[queue]" ) {
         // work properly in concert with getCount()
         // and remove()
         // YOUR CODE HERE
+        for (int i = 1; i < 10; i++) 
+            q2.push(string(i, 'a'));
+        CHECK(q2.peek() == "a");
+        for (int i = 1; i <= 6; i++)
+            CHECK(q2.pop() == string(i, 'a'));
+        CHECK(q2.pop() == "aaaaaaa");
     }
 }
 
