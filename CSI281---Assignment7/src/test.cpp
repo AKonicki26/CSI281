@@ -73,6 +73,14 @@ TEST_CASE( "Stack Tests", "[stack]" ) {
         // work properly in concert with getCount()
         // and remove()
         // YOUR CODE HERE
+        int sampleIntArray1[6] = { 23, 4, 11, 4, 7, 8 };
+        for (int element : sampleIntArray1)
+            s1.push(element);
+        CHECK(s1.peek() == 8);
+        CHECK(s1.pop() == 8);
+        CHECK(s1.pop() == 7);
+        s1.push(500);
+        CHECK(s1.peek() == 500);
     }
     
     SECTION( "Stack w/ string tests" ) {
@@ -81,6 +89,12 @@ TEST_CASE( "Stack Tests", "[stack]" ) {
         // work properly in concert with getCount()
         // and remove()
         // YOUR CODE HERE
+        for (int i = 1; i < 10; i++)
+            s2.push(string(i, 'a'));
+        CHECK(s2.peek() == "aaaaaaaaa");
+        for (int i = 9; i >= 3; i--)
+            CHECK(s2.pop() == string(i, 'a'));
+        CHECK(s2.pop() == "aa");
     }
 }
 
