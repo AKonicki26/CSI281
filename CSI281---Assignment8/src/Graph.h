@@ -114,22 +114,14 @@ namespace csi281 {
             while (frontier.size() > 0) {
                 V currentNode = frontier.top();
                 frontier.pop();
-                cout << endl << "Current Node: " << currentNode << endl;
-                cout << "How did we get here: " << explored[currentNode] << endl;
-                if (currentNode == goal) {
-                    cout << "Found the node!" << endl;
-                    Path returnPath = pathMapToPath(explored, currentNode);
-                    return make_optional<Path>(returnPath);
-                }
+                if (currentNode == goal)
+                    return make_optional<Path>(pathMapToPath(explored, currentNode));
 
                 for (V node : neighbors(currentNode)) {
-                    cout << "Iterated node: " << node << endl; 
-                    V DefaultNode = V();
-                    if (explored[node] != DefaultNode)
+                    if (explored.find(node) != explored.end())
                         continue;
                     explored[node] = currentNode;
                     frontier.push(node);
-                    cout << "Next node: " << frontier.top() << endl;
                 }
             }
             return nullopt;
@@ -155,22 +147,16 @@ namespace csi281 {
             while (frontier.size() > 0) {
                 V currentNode = frontier.front();
                 frontier.pop();
-                cout << endl << "Current Node: " << currentNode << endl;
-                cout << "How did we get here: " << explored[currentNode] << endl;
                 if (currentNode == goal) {
-                    cout << "Found the node!" << endl;
                     Path returnPath = pathMapToPath(explored, currentNode);
                     return make_optional<Path>(returnPath);
                 }
 
                 for (V node : neighbors(currentNode)) {
-                    cout << "Iterated node: " << node << endl; 
-                    V DefaultNode = V();
-                    if (explored[node] != DefaultNode)
+                    if (explored.find(node) != explored.end())
                         continue;
                     explored[node] = currentNode;
                     frontier.push(node);
-                    cout << "Next node: " << frontier.back() << endl;
                 }
             }
             return nullopt;
