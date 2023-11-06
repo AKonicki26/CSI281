@@ -1,0 +1,21 @@
+1. While still using a priority queue, get the back of the queue rather than the front
+
+2. The difference is that the minimum-spanning-tree never returns back to the root node
+
+3. 
++-----------+---------+-----------+---------+----------+---------+
+|           | Chicago | Riverside | Detroit | New York | Houston |
++-----------+---------+-----------+---------+----------+---------+
+| Chicago   | 1       | 0         | 238     | 0        | 0       |
++-----------+---------+-----------+---------+----------+---------+
+| Riverside | 1704    | 1         | 0       | 0        | 0       |
++-----------+---------+-----------+---------+----------+---------+
+| Detroit   | 0       | 0         | 1       | 482      | 0       |
++-----------+---------+-----------+---------+----------+---------+
+| New York  | 0       | 0         | 0       | 1        | 0       |
++-----------+---------+-----------+---------+----------+---------+
+| Houston   | 0       | 0         | 0       | 0        | 1       |
++-----------+---------+-----------+---------+----------+---------+
+
+5. Jarnik's algorithm is a greedy algorithm because it uses local options rather than
+considering the entire tree structure
