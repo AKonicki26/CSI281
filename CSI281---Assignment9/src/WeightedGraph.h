@@ -140,6 +140,25 @@ namespace csi281 {
             // from class, from your book, and you are free to
             // use other pseudocode as long as you cite it. Please
             // do not look at other C++ solutions.
+
+            while (frontier.size() > 0) {
+                // currentNode.first gets weight
+                // currentNode.second gets vertex
+                pair<W, V> currentNode = frontier.top();
+                frontier.pop();
+
+                for (pair<V, W> node : neighborsWithWeights(currentNode.second)) {
+
+                    if (parents.find(node.first) == parents.end()) {
+                        parents[node.first] == currentNode.second;
+                    }
+
+                    W oldWeight = weights[node.first];
+                    if (oldWeight >= currentNode.first) {
+
+                    }
+                }
+            }
             
             return make_pair(parents, weights);
         }
