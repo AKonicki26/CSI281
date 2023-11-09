@@ -173,3 +173,5 @@ TEST_CASE( "dijkstra() cityGraph2 Test", "[dijksta]" ) {
 // reuse cityGraph or cityGraph2. Cite any sources.
 // Make sure that your assertions are fairly comprehensive.
 // Look at the prior two tests as examples.
+TEST_CASE("dijkstra() Custom Test", "[dijkstra]") {
+}

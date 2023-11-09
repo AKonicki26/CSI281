@@ -146,20 +146,17 @@ namespace csi281 {
                 // currentNode.second gets vertex
                 pair<W, V> currentNode = frontier.top();
                 frontier.pop();
+                W weightToCurrent = weights[currentNode.second];
 
                 for (pair<V, W> node : neighborsWithWeights(currentNode.second)) {
-
-                    if (parents.find(node.first) == parents.end()) {
-                        parents[node.first] == currentNode.second;
-                    }
-
-                    W oldWeight = weights[node.first];
-                    if (oldWeight >= currentNode.first) {
-
+                    W newWeight = weightToCurrent + node.second;
+                    if ( (weights.find(node.first) == weights.end()) || weights[node.first] > newWeight ) {
+                        parents[node.first] = currentNode.second;
+                        weights[node.first] = newWeight;
+                        frontier.push(make_pair(newWeight, node.first));
                     }
                 }
             }
-            
             return make_pair(parents, weights);
         }
         
