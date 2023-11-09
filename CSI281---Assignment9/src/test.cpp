@@ -174,4 +174,44 @@ TEST_CASE( "dijkstra() cityGraph2 Test", "[dijksta]" ) {
 // Make sure that your assertions are fairly comprehensive.
 // Look at the prior two tests as examples.
 TEST_CASE("dijkstra() Custom Test", "[dijkstra]") {
+    WeightedGraph<string, int> cityGraph3 = WeightedGraph<string, int>();
+    cityGraph3.addEdge("Boston", "Worcester", 50, true);
+    cityGraph3.addEdge("Boston", "Burlington", 147);
+    cityGraph3.addEdge("Boston", "New York City", 187, true);
+    cityGraph3.addEdge("Burlington", "New York City", 212);
+    cityGraph3.addEdge("New York City", "Miami", 938);
+    cityGraph3.addEdge("New York City", "Seattle", 1245);
+    cityGraph3.addEdge("New York City", "Houston", 865);
+    cityGraph3.addEdge("Miami", "Houston", 420, true);
+    cityGraph3.addEdge("Miami", "Los Angeles", 1190);
+    cityGraph3.addEdge("Houston", "Detroit", 587);
+    cityGraph3.addEdge("Detroit", "Worcester", 314);
+    cityGraph3.addEdge("Detroit", "Seattle", 756);
+    cityGraph3.addEdge("Seattle", "Miami", 2013);
+    cout << "------cityGraph3------" << endl;
+    cityGraph3.debugPrint();
+    auto resultPair = cityGraph3.dijkstra("Boston");
+    auto parentResults = resultPair.first;
+    auto weightResults = resultPair.second;
+    // are the distances from Boston correct?
+    CHECK(weightResults["Seattle"] == 1120);
+    CHECK(weightResults["Detroit"] == 364);
+    CHECK(weightResults["Los Angeles"] == 2315);
+    CHECK(weightResults["Houston"] == 951);
+    auto path = cityGraph3.pathMapToPath(parentResults, "Los Angeles");
+    cout << "------customGraph path------" << endl;
+    printPath(path);
+    // Shortest path should be
+    // Boston -> New York City -> Miami -> Los Angeles
+    CHECK(path.size() == 4);
+    CHECK(path.front() == "Boston");
+    CHECK(path.back() == "Los Angeles");
+    auto it = path.begin();
+    auto last = path.front();
+    for (unsigned long i = 1; i < path.size(); i++) {
+        it++;
+        auto current = *it;
+        CHECK(cityGraph3.edgeExists(last, current));
+        last = current;
+    }
 }
