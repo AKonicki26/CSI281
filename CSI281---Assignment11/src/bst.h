@@ -35,6 +35,8 @@
 #include <optional>
 #include <random>
 
+#include <iostream>
+
 using namespace std;
 
 namespace csi281 {
@@ -72,37 +74,96 @@ namespace csi281 {
         // need to initialize root
         void insert(T key) {
             // YOUR CODE HERE
+            if (root == nullptr) { 
+                root = new Node(key, nullptr, nullptr);
+                count++;
+                return; 
+            }
+
+            Node* iterator = root;
+            
+            do {
+                if (key <= iterator->key) { 
+                    if (iterator->left == nullptr) {
+                        iterator->left = new Node(key, nullptr, nullptr);
+                        count++;
+                        break;
+                    }
+                    iterator = iterator->left; 
+                }
+                else { 
+                    if (iterator->right == nullptr) {
+                        iterator->right = new Node(key, nullptr, nullptr);
+                        count++;
+                        break;
+                    }
+                    iterator = iterator->right;
+                }
+            } while (iterator != nullptr);
         }
         
         // Do a search through the tree and return
         // whether or not it contains *key*
         bool contains(const T &key) {
             // YOUR CODE HERE
+            Node* iterator = root;
+            do {
+                if (key == iterator->key) { return true; }
+                else if (key < iterator->key) { iterator = iterator->left; }
+                else { iterator = iterator->right; }
+            } while (iterator != nullptr);
+            return false;
         }
-        
+
         // Helper for inOrderWalk() to call for entire bst
-        void inOrderWalk(list<T> &accumulated) {
+        void inOrderWalk(list<T>& accumulated) {
             inOrderWalk(accumulated, root);
         }
-        
+
         // Walk through the entire tree in ascending order, starting
         // from *current*, and accumulate the values in the
         // list *accumulated*
         // TIP: See page 288 of Chapter 12 of Introduction to Algorithms
-        void inOrderWalk(list<T> &accumulated, Node *current) {
+        void inOrderWalk(list<T>& accumulated, Node* current) {
             // YOUR CODE HERE
+            if (current == nullptr) { return; }
+            inOrderWalk(accumulated, current->left);
+            accumulated.push_back(current->key);
+            inOrderWalk(accumulated, current->right);
         }
         
         // Find the minimum key in the tree
         // If the tree is empty, return nullopt
         optional<T> minimum() {
             // YOUR CODE HERE
+            if (root == nullptr)
+                return nullopt;
+            
+            Node* iterator = root;
+            T value;
+            do {
+                value = iterator->key;
+                iterator = iterator->left; 
+            } while (iterator != nullptr);
+
+            return make_optional(value);
         }
         
         // Find the maximum key in the tree
         // If the tree is empty, return nullopt
         optional<T> maximum() {
             // YOUR CODE HERE
+            if (root == nullptr)
+                return nullopt;
+            
+            Node* iterator = root;
+            T value;
+            do {
+                value = iterator->key;
+                iterator = iterator->right; 
+            } while (iterator != nullptr);
+
+            return make_optional(value);
         }
         
         // How many nodes are in the tree?
