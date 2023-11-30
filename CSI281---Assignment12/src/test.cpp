@@ -146,6 +146,7 @@ TEST_CASE( "random PriorityQueue<int> test", "[rand PriorityQueue<int>]" ) {
     cout << "popped contents of pq" << endl;
     for (int j = 0; j < length; j++) {
         int i = sampleIntArray1[j];
+        // Crashes here
         auto poppedElement = pq.pop();
         cout << poppedElement << " ";
         REQUIRE( i == poppedElement );
